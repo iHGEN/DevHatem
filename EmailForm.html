@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .textbox {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            height: 100px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .main-btn {
+            color: #fff;
+            background-color: #B71229;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 1px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            transition: 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .main-btn:hover {
+            background-color: #8A1229;
+            transform: scale(1.05);
+        }
+
+        .main-btn:active {
+            background-color: #a88f94;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="title-text" class="title-info">Get Contact With Me</h1>
+        <form id="formsection" accept-charset="utf-8">
+            <input class="textbox" type="text" id="name" name="name" placeholder="Your name" required><br><br>
+            <input class="textbox" type="email" id="email" name="email" placeholder="Your Email" required><br><br>
+            <textarea id="message" name="message" placeholder="Your Message" required></textarea><br><br>
+            <input class="main-btn" type="submit" value="Send">
+        </form>
+    </div>
+    <script>
+
+        function redirecttomainpage()
+        {
+            window.open("/./",'_self');
+        }
+        var titletext = document.getElementById('title-text');
+        var formdata = document.getElementById('formsection');
+        document.getElementById('formsection').addEventListener('submit',function(event){
+              event.preventDefault();
+              var formData = new FormData(this);
+              fetch('https://devhatem.com/src/EmailSender.php',{
+                method : 'POST',
+                body : formData
+              })
+              .then(Response => Response.text())
+              .then(data => {
+                formdata.style.display = 'none';
+                titletext.innerText = data;
+                formdata.style.color = 'green';
+                setTimeout(redirecttomainpage,2000);
+              })
+              .catch(error =>{
+                formdata.style.display = 'none';
+                titletext.innerText = 'An error occurred. Please try again.';
+                titletext.style.color = 'red'
+              });
+              });
+    </script>
+</body>
+</html>
