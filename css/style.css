@@ -325,11 +325,11 @@ section {
     text-decoration: none;
     color: #B71229;
     left: 0px;
-    font-size: 1.2em;
+    font-size: 1em;
     transition: 0.3s ease;
   }
   .ul-link li{
-    margin: 5%;
+    margin: 3%;
   }
   .ul-link{
     flex-basis: 100%;
